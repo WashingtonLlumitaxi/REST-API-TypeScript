@@ -15,17 +15,36 @@ export default () => {
         res.send("Api is Healthy!!!");
     });
 
+    //Get
     router.get("/users", async(req, res) => {
         const users = await userService.findUsers();
         res.json(users);
     });
 
+    router.get("/users/:id", async(req, res) => {
+        const users = await userService.findUsersById(req.params.id);
+        res.json(users);
+    });
+
+    //Create
     router.post("/users", async(req, res) => {
         const newUser: User = req.body;
         const result = await userService.createUser(newUser);
         res.json(result);
 
     });
+
+    //Update
+    router.put("/users/:id", async (req, res) => {
+        const users = await userService.updateUser(req.params.id, req.body);
+        res.json(users);
+    });
+
+    //Delete
+    router.delete("/users/:id", async(req, res) => {
+        const users = await userService.deleteUser(req.params.id);
+        res.json(users);
+    })
 
     return router;
 };
