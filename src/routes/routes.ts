@@ -7,6 +7,7 @@ import { IUserRepository, IUserService, User } from "types/UsersTypes";
 import { IRolesRepository, IRolesService, Roles } from "types/RolesTypes";
 import { createUser, deleteUser, findUsers, findUsersById, updateUser } from "@controllers/usersControllers";
 import { createRoles, deleteRoles, findRoles, findRolesById, updateRoles } from "@controllers/rolesControllers";
+import { registerUser } from "@controllers/auth/authControllers";
 
 const router = Router();
 
@@ -19,46 +20,37 @@ const router = Router();
 //const rolesService: IRolesService = new RolesService(rolesRepository);
 
 
-//User Roles
 export default () => {
     router.get("/health", (req, res) => {
         res.send("Api is Healthy!!!");
     });
 
-    //Get
+    //Auth Routes
+    router.post("/auth/register", registerUser);
+
+
+    //User Routes
     router.get("/users", findUsers);
-
     router.get("/users/:id", findUsersById);
-
-    //Create
     router.post("/users", createUser);
-
-    //Update
     router.put("/users/:id", updateUser);
-
-    //Delete
     router.delete("/users/:id", deleteUser);
 
 
-//Roles Roles
-    //Get
+    //Roles Roles
     router.get("/roles", findRoles);
-
     router.get("/roles/:id", findRolesById);
-
     //Create
     //router.post("/roles", async(req, res) => {
-      //  const newRoles: Roles = req.body;
-      //  const result = await rolesService.createRoles//(newRoles);
-      //  res.json(result);
+    //  const newRoles: Roles = req.body;
+    //  const result = await rolesService.createRoles//(newRoles);
+    //  res.json(result);
 
     //});
-    router.post("roles", createRoles);
-
-    //Update
+    router.post("/roles", createRoles);
     router.put("/roles/:id", updateRoles);
-
-    //Delete
     router.delete("/roles/:id", deleteRoles);
+
+
     return router;
 };

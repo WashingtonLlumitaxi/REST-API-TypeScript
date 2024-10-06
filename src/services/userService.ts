@@ -20,7 +20,12 @@ export class UserService implements IUserService {
     async findUsersById(id: string): Promise<User | null> {
         return this.userRepository.findById(id);
     }
-    
+
+    findUsersByEmail(email: string): Promise<User | null> {
+        //return this.userRepository.findOne({email: email});
+        return this.userRepository.findOne({ email });
+    }
+
     async updateUser(id: string, user: Partial<User>): Promise<User | null> {
         return this.userRepository.update(id, user);
     }

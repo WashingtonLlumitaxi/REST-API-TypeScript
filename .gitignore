@@ -1,8 +1,6 @@
 node_modules
 .env
 package-lock.json
+documentation.txt
 
 
-## Types ->  service -> models -> Repository -> Routes
-
-##Create the controllers
