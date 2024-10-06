@@ -2,6 +2,7 @@ import { UserRepository } from "@repositories/userRepositories";
 import { UserService } from "@services/userService";
 import { Request, Response } from "express";
 import { IUserRepository, IUserService, User } from "types/UsersTypes";
+import jwt from "jsonwebtoken";
 
 const userRepository: IUserRepository = new UserRepository();
 const userService: IUserService = new UserService(userRepository);
@@ -33,7 +34,10 @@ export const loginUser = async (req: Request, res: Response) => {
         const comparePass = await user.comparePassword(password);
         if(!comparePass) return res.status(400).json({message: "Invalid user or password"});
 
-        res.json(user);
+        //jwt
+        const token = jwt.sign({ id: user._id, email: user.email, username: user.username}, "SecretKey", {expiresIn: "1h"});
+
+        res.json(token);
 
     } catch (error) {
         console.log("error :>> ", error);
