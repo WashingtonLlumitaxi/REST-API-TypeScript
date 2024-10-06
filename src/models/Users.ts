@@ -39,6 +39,11 @@ UserSchema.pre<User>("save", async function(next){
     next();
 });
 
+//For login User
+UserSchema.method("comparePassword", async function (password: string): Promise<boolean> {
+    return await bcrypt.compare(password, this.password as string);
+})
+
 //Remove password for the view
 UserSchema.methods.toJSON = function () {
     const userObj = this.toObject()

@@ -1,10 +1,19 @@
-POST http://localhost:4000/api/v1/users HTTP/1.1
+POST http://localhost:4000/api/v1/auth/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "David8",
-    "username": "udavid8",
-    "email": "example8@test.com",
+    "name": "David9",
+    "username": "udavid9",
+    "email": "example9@test.com",
+    "password": "12345678"
+}
+
+###
+POST http://localhost:4000/api/v1/auth/login HTTP/1.1
+Content-Type: application/json
+
+{
+    "email": "example0@test.com",
     "password": "12345678"
 }
 
